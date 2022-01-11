@@ -117,7 +117,6 @@ class Users {
 					$connect->close();
 					$res = $result->fetch_array(MYSQLI_ASSOC);
 
-
 					if(!empty($res)):
 
 						if(password_verify($password, $res['password'])):		// Comparing password hash with user password
@@ -162,5 +161,33 @@ class Users {
 			unset($_SESSION['user_id'], $_SESSION['login']);		// Delite the valye of the SESSION array
 
 		endif;								
+
 	}
+
+
+	function deleteUser($arr) {
+
+		if(!empty($arr['del'])):
+
+			include 'bd_connect.php';
+
+			$user_id =  strtr(trim($_SESSION['user_id']), array ('"' => '%', '\'' => '%', '--' => '%', '*' => '%'));
+			$sql = "DELETE FROM tusers WHERE user_id='$user_id'";
+			$res = $connect->query($sql);
+			$connect->close();
+			if($res):
+
+				unset($_SESSION['user_id'], $_SESSION['login']);
+				return 'Аккаунт удален!!!';
+
+			else:
+
+				return 'Ошибка удаления!!!';
+
+			endif;
+
+		endif;
+
+	}
+
 }

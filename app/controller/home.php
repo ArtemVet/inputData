@@ -20,6 +20,7 @@ $user = new Users();
 
 $error = $user->inputData($_POST);
 $user->outLog($_POST);
+$del = $user->deleteUser($_POST);
 
 
 include 'app/view/home.php';

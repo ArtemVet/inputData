@@ -1,6 +1,8 @@
 	<section class="wrapper">
 		<section class="wrapper-form">
-			<h1><?php if(!empty($error)) echo $error; if(!empty($_SESSION['login']))echo "Добро пожаловать {$_SESSION['login']}"; ?></h1>
+			<h1><?php if(!empty($error)) echo $error; 
+			if(!empty($_SESSION['login']))echo "Добро пожаловать {$_SESSION['login']}"; 
+			if(!empty($del))echo "Аккаунт удален!!!"; ?></h1>
 			<form action="?page=home" method="POST">
 				<?php if(empty($_SESSION['user_id'])): ?>
 
@@ -11,6 +13,7 @@
 				<?php else: ?>
 
 					<input class="inputKey" type="submit" name="out" value="Выход">
+					<input class="inputKey" type="submit" name="del" value="Удалить">
 					
 				<?php endif; ?>
 			</form>
