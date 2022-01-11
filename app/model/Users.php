@@ -94,28 +94,31 @@ class Users {
 
 	}
 
+
+	// Login function
+
 	function inputData($arr) {
 		
 
-		if(!empty($arr['input'])):
+		if(!empty($arr['input'])):					// Checking an array value to check if a button is pressed
 
-			include 'bd_connect.php';
+			include 'bd_connect.php';				// Include the MySQL database configuration file.
 
-			if(!empty($arr['login'])):
+			if(!empty($arr['login'])):				// Checking an array for a name value
 
-				$login = strtr(trim($arr['login']), array ('"' => '%', '\'' => '%', '--' => '%', '*' => '%'));
+				$login = strtr(trim($arr['login']), array ('"' => '%', '\'' => '%', '--' => '%', '*' => '%'));					// Escaping username from SQL injections
 
-				if(!empty($arr['password'])):
+				if(!empty($arr['password'])):																					// Checking an array for a password value
 
-					$password = strtr(trim($arr['password']), array ('"' => '%', '\'' => '%', '--' => '%', '*' => '%'));
-					$sql = "SELECT password, user_id FROM tusers WHERE login = '$login'";
-					$result = $connect->query($sql);
+					$password = strtr(trim($arr['password']), array ('"' => '%', '\'' => '%', '--' => '%', '*' => '%'));		// Escaping password from SQL injections
+					$sql = "SELECT password, user_id FROM tusers WHERE login = '$login'";										// SQL query to get password hash
+					$result = $connect->query($sql);						// Sending an SQL query to the database
 					$res = [];
 					$connect->close();
 					$res = $result->fetch_array(MYSQLI_ASSOC);
 
 
-					if(password_verify($password, $res['password'])):
+					if(password_verify($password, $res['password'])):		// Comparing password hash with user password
 
 
 						$_SESSION['user_id'] = $res['user_id'];
@@ -143,11 +146,14 @@ class Users {
 
 	}
 
-	function outLog($arr) {
-		if (!empty($arr['out'])):
 
-			unset($_SESSION['user_id'], $_SESSION['login']);
+	// Function out login
 
-		endif;
+	function outLog($arr) {	
+		if (!empty($arr['out'])):									// Checking the array value of the pressed button
+
+			unset($_SESSION['user_id'], $_SESSION['login']);		// Delite the valye of the SESSION array
+
+		endif;								
 	}
 }

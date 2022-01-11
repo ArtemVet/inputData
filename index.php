@@ -1,12 +1,13 @@
 <?php 
 
-include 'header.php';
+include 'header.php';			// Inqludes header file
 
-include 'router.php';
-
-router($_GET);
+include 'router.php';			// Includes router file
 
 
-include 'footer.php'; 
+router($_GET);					// Router function call
+
+
+include 'footer.php'; 			// Includes fotter file
 
 ?>
