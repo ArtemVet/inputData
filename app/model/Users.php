@@ -118,15 +118,22 @@ class Users {
 					$res = $result->fetch_array(MYSQLI_ASSOC);
 
 
-					if(password_verify($password, $res['password'])):		// Comparing password hash with user password
+					if(!empty($res)):
 
+						if(password_verify($password, $res['password'])):		// Comparing password hash with user password
 
-						$_SESSION['user_id'] = $res['user_id'];
-						$_SESSION['login'] = $login;
+							$_SESSION['user_id'] = $res['user_id'];
+							$_SESSION['login'] = $login;
+
+						else:
+
+							return 'Ошибка пароля';
+
+						endif;
 
 					else:
 
-						return 'Ошибка пароля';
+						return 'Не верный логин!!!';
 
 					endif;
 
